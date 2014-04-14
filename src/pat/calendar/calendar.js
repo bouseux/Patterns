@@ -68,7 +68,7 @@ define([
 
             cfg.defaultDate = storage.get("date") || cfg.defaultDate;
             cfg.defaultView = storage.get("view") || cfg.defaultView;
-            cfg.tooltip = $el.data('patCalendarTooltip');
+            cfg.modal = $el.data('patCalendarModal');
 
             if (!opts.ignoreUrl) {
                 var search = _._parseSearchString();
@@ -109,33 +109,33 @@ define([
                         callback(events);
                     },
                     dayClick: function () {
-                        /* Allows for a tooltip (via pat-tooltip) to be shown
+                        /* Allows for a modal (via pat-modal) to be shown
                          * when a user clicks on a day.
                          *
-                         * The configuration is the same as pat-tooltip but
-                         * appears under "data-pat-calendar-tooltip".
+                         * The configuration is the same as pat-modal but
+                         * appears under "data-pat-calendar-modal".
                          */
-                        if (!cfg.tooltip) {
+                        if (!cfg.modal) {
                             return;
                         }
-                        var $tooltip = $(this).find('a.pat-tooltip');
-                        if ($tooltip.length === 0) {
-                            /* Retrieve the injection URL from the tooltip
+                        var $modal = $(this).find('a.pat-modal');
+                        if ($modal.length === 0) {
+                            /* Retrieve the injection URL from the modal
                              * config data and add the day's date to its query
                              * string.
                              * Then take this data and use it to create and
-                             * configure a tooltip trigger element, which is
+                             * configure a modal trigger element, which is
                              * then triggered.
                              */
-                            var match = cfg.tooltip.match(/url:[ ](.*?);/),
-                                data = cfg.tooltip.replace(match[0], ''),
+                            var match = cfg.modal.match(/url:[ ](.*?)(;|$)/),
+                                data = cfg.modal.replace(match[0], ''),
                                 url = utils.addURLQueryParameter(match[1], 'date', $(this).data('date'));
-                            $tooltip = $(this).append(
-                                    $('<a/>').attr({'href': url}).attr({'data-pat-tooltip': data}).addClass('pat-tooltip')
-                                ).find('a.pat-tooltip');
-                            registry.scan($tooltip);
+                            $modal = $(this).append(
+                                    $('<a><a/>').attr({'href': url}).addClass('pat-modal')
+                                ).find('a.pat-modal');
+                            registry.scan($modal);
                         }
-                        $tooltip.trigger('click.tooltip');
+                        $modal.trigger('click');
                     }
                 };
 
