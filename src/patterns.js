@@ -29,7 +29,6 @@ define([
     "pat-focus",
     "pat-formstate",
     "pat-forward",
-    "pat-fullcalendar",
     "pat-gallery",
     "pat-inject",
     "pat-input-change-events",
@@ -56,8 +55,7 @@ define([
     "pat-tooltip",
     "pat-validate",
     "pat-zoom",
-    "pat-url",
-    "pat-calendar"
+    "pat-url"
 ], function($, registry) {
     // Since we are in a non-AMD env, register a few useful utilites
     $(function () {
